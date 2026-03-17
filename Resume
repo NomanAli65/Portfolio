@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noman Ali — Senior React Native Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B1A1A;
+    --crimson-light: #C0392B;
+    --crimson-pale: #f9eded;
+    --ink: #1a1410;
+    --ink-soft: #3d3530;
+    --muted: #7a6f6a;
+    --rule: #e8ddd8;
+    --bg: #faf8f6;
+    --white: #ffffff;
+    --gold: #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Page wrapper */
+  .page {
+    max-width: 960px;
+    margin: 40px auto;
+    background: var(--white);
+    box-shadow: 0 20px 80px rgba(139,26,26,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative top bar */
+  .top-bar {
+    height: 6px;
+    background: linear-gradient(90deg, var(--crimson) 0%, var(--gold) 50%, var(--crimson) 100%);
+  }
+
+  /* Header */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    padding: 52px 60px 44px;
+    background: var(--white);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 60px; right: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--crimson), transparent);
+  }
+
+  /* Decorative corner accent */
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle at top right, rgba(139,26,26,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .name-block h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .name-block h1 span {
+    color: var(--crimson);
+  }
+
+  .name-block .title {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .name-block .title strong {
+    color: var(--crimson);
+    font-weight: 600;
+  }
+
+  /* Contact block */
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    text-align: right;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .contact-icon {
+    width: 20px;
+    height: 20px;
+    background: var(--crimson);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 11px;
+    height: 11px;
+    fill: white;
+  }
+
+  /* Main layout */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 0;
+  }
+
+  /* Left column */
+  .left {
+    padding: 44px 48px 52px 60px;
+    border-right: 1px solid var(--rule);
+  }
+
+  /* Right column */
+  .right {
+    padding: 44px 40px 52px 36px;
+    background: #fdfaf9;
+  }
+
+  /* Section headers */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--crimson), transparent);
+    opacity: 0.3;
+  }
+
+  .section {
+    margin-bottom: 40px;
+  }
+
+  /* Summary */
+  .summary p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    font-weight: 300;
+    border-left: 3px solid var(--crimson);
+    padding-left: 16px;
+  }
+
+  /* Job entries */
+  .job {
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .job:last-child { margin-bottom: 0; }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    gap: 12px;
+  }
+
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .job-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--white);
+    background: var(--crimson);
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .job-company {
+    font-size: 12.5px;
+    color: var(--crimson-light);
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  .job-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .job-bullets li {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 300;
+  }
+
+  .job-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--crimson);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  /* Divider between jobs */
+  .job-divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 28px 0;
+  }
+
+  /* Right column — Skills */
+  .skill-group {
+    margin-bottom: 28px;
+  }
+
+  .skill-group-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-soft);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    padding: 4px 9px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .tag.primary {
+    background: var(--crimson-pale);
+    border-color: rgba(139,26,26,0.2);
+    color: var(--crimson);
+    font-weight: 500;
+  }
+
+  /* Education */
+  .edu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .edu-school {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--crimson);
+  }
+
+  /* Languages */
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .lang-name {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .lang-level {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .lang-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .lang-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--crimson), var(--gold));
+    border-radius: 2px;
+  }
+
+  /* Decorative number accent */
+  .exp-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+    background: var(--crimson);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+  }
+
+  .exp-badge .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .exp-badge .label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* Footer strip */
+  .footer-strip {
+    background: var(--ink);
+    padding: 14px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-strip span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+  }
+
+  .footer-strip .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--crimson);
+    border-radius: 50%;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; max-width: 100%; }
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page { animation: fadeUp 0.5s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="top-bar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name-block">
+      <h1>Noman <span>Ali</span></h1>
+      <p class="title"><strong>Senior React Native Engineer</strong> &nbsp;·&nbsp; Tech Lead &nbsp;·&nbsp; Mobile App Architect</p>
+    </div>
+    <div class="contact-block">
+      <div class="contact-item">
+        <span>Karachi, Pakistan</span>
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span>+92 317 280 0068</span>
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span>nomanali7296@gmail.com</span>
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- LEFT COLUMN -->
+    <div class="left">
+
+      <!-- Summary -->
+      <div class="section summary">
+        <div class="section-title">Profile</div>
+        <p>Senior React Native Engineer with 8+ years of experience building and leading mobile applications of all types — fintech, social, navigation, booking, news, and utility apps. Proven expertise in performance optimization, clean architecture, TypeScript, GraphQL, and real-time features. A hands-on tech lead who takes full ownership from architecture to deployment.</p>
+      </div>
+
+      <!-- Experience -->
+      <div class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Senior Software Engineer</div>
+            <div class="job-period">Apr 2025 – Present</div>
+          </div>
+          <div class="job-company">InsuranceMarket.ae &nbsp;·&nbsp; Remote &nbsp;·&nbsp; Fintech</div>
+          <ul class="job-bullets">
+            <li>Built real-time crypto & stock price feeds using WebSockets in a fintech mobile app.</li>
+            <li>Ensured daily app stability via regression testing alongside QA & automation engineers.</li>
+            <li>Delivered scalable features end-to-end using agile methodologies.</li>
+          </ul>
+        </div>
+
+        <div class="job-divider"></div>
+
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Lead React Native Engineer</div>
+            <div class="job-period">Apr 2024 – Apr 2025</div>
+          </div>
+          <div class="job-company">Cmolds &nbsp;·&nbsp; Karachi, Pakistan</div>
+          <ul class="job-bullets">
+            <li>Led end-to-end mobile development across multiple client projects, meeting strict deadlines.</li>
+            <li>Mentored junior engineers, improving team productivity and code quality.</li>
+            <li>Conducted feasibility studies, delivered detailed analysis informing leadership decisions.</li>
+            <li>Maintained documentation and presented technical findings to stakeholders.</li>
+          </ul>
+        </div>
+
+        <div class="job-divider"></div>
+
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Lead React Native Developer</div>
+            <div class="job-period">May 2023 – Mar 2024</div>
+          </div>
+          <div class="job-company">Octalyte &nbsp;·&nbsp; Karachi, Pakistan</div>
+          <ul class="job-bullets">
+            <li>Shipped new features from stakeholder feedback, increasing customer satisfaction.</li>
+            <li>Increased app stability through unit testing, CI/CD, and automated deployment.</li>
+            <li>Modernized legacy codebases to current development standards.</li>
+          </ul>
+        </div>
+
+        <div class="job-divider"></div>
+
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Senior React Native Developer / Team Lead</div>
+            <div class="job-period">Jul 2019 – Feb 2023</div>
+          </div>
+          <div class="job-company">Appicoders Inc &nbsp;·&nbsp; Karachi, Pakistan</div>
+          <ul class="job-bullets">
+            <li>Led a team delivering cross-platform mobile apps on time and within budget.</li>
+            <li>Drove end-to-end feature development from design through deployment.</li>
+            <li>Collaborated with product owners on requirements, priorities, and timelines.</li>
+            <li>Integrated third-party libraries and APIs to enhance functionality.</li>
+          </ul>
+        </div>
+
+        <div class="job-divider"></div>
+
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">React Native Developer</div>
+            <div class="job-period">Aug 2017 – Apr 2019</div>
+          </div>
+          <div class="job-company">Apps Dot Inc &nbsp;·&nbsp; Karachi, Pakistan</div>
+          <ul class="job-bullets">
+            <li>Built reusable component libraries, significantly reducing future development time.</li>
+            <li>Optimized React Native components for improved performance and best practices.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+      <!-- Experience badge -->
+      <div class="exp-badge">
+        <span class="num">8+</span>
+        <span class="label">Years<br>Experience</span>
+      </div>
+
+      <!-- Core Skills -->
+      <div class="section">
+        <div class="section-title">Core Stack</div>
+        <div class="skill-group">
+          <div class="skill-group-title">Mobile</div>
+          <div class="skill-tags">
+            <span class="tag primary">React Native</span>
+            <span class="tag primary">TypeScript</span>
+            <span class="tag">Expo</span>
+            <span class="tag">React.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">State & Data</div>
+          <div class="skill-tags">
+            <span class="tag primary">Redux Toolkit</span>
+            <span class="tag">Zustand</span>
+            <span class="tag">React Query</span>
+            <span class="tag">Context API</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">APIs & Realtime</div>
+          <div class="skill-tags">
+            <span class="tag primary">REST APIs</span>
+            <span class="tag primary">GraphQL</span>
+            <span class="tag">WebSockets</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Architecture</div>
+          <div class="skill-tags">
+            <span class="tag">Clean Architecture</span>
+            <span class="tag">Component-Driven</span>
+            <span class="tag">Performance Optimization</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Tools</div>
+          <div class="skill-tags">
+            <span class="tag">Git</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">Agile/Scrum</span>
+            <span class="tag">Unit Testing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-title">ACCP Pro — Software Engineering</div>
+        <div class="edu-school">Aptech Computer Education Pakistan</div>
+        <div class="edu-year">2016 · Karachi</div>
+      </div>
+
+      <!-- Languages -->
+      <div class="section">
+        <div class="section-title">Languages</div>
+
+        <div class="lang-item">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Professional</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:75%"></div></div>
+
+        <div class="lang-item">
+          <span class="lang-name">Urdu</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+
+        <div class="lang-item">
+          <span class="lang-name">Punjabi</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-bar" style="margin-bottom:0"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-strip">
+    <span>NOMAN ALI &nbsp;·&nbsp; SENIOR REACT NATIVE ENGINEER</span>
+    <div class="dot"></div>
+    <span>nomanali7296@gmail.com</span>
+  </div>
+
+</div>
+
+</body>
+</html>
